@@ -23,7 +23,7 @@ Main::Main()
 		bee[i] = new ObImage(L"hit.png");
 		bee[i]->SetParentRT(*tower[i]);
 	}
-
+	//¤·¤·
 }
 
 Main::~Main()
