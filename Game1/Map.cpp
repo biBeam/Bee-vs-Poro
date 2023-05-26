@@ -27,5 +27,9 @@ void Map::Update()
 
 void Map::Render()
 {
+	if (!isUse)
+	{
+		return;
+	}
 	ObRect::Render();
 }

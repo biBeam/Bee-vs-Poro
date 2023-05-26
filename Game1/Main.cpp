@@ -4,7 +4,7 @@
 
 Main::Main()
 {
-	
+
 
 	for (int i = 0; i < 10; i++) {
 		tower[i] = new Tower();
@@ -18,12 +18,12 @@ Main::Main()
 	}
 
 	bg = new ObImage(L"map.png");
-	
+
 	for (int i = 0; i < 10; i++) {
 		bee[i] = new ObImage(L"attack.png");
 		bee[i]->SetParentRT(*tower[i]);
 	}
-	
+
 }
 
 Main::~Main()
@@ -62,6 +62,37 @@ void Main::Init()
 			map[i][j].collider = COLLIDER::RECT;
 		}
 	}
+	//스테이지별 타워설치가능한 맵개방
+	if (stage == 1)
+	{
+		for (int i = 0; i < 9;i++)
+		{
+			map[0][i].isUse = false;
+			map[4][i].isUse = false;
+		}
+		for (int j = 1; j < 4; j++)
+		{
+			for (int k = 6; k < 9; k++)
+			{
+				map[j][k].isUse = false;
+			}
+		}
+	}
+	if (stage == 2)
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			map[0][i].isUse = false;
+		}
+	}
+	if (stage == 3)
+	{
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 9; j++) {
+				map[i][j].isUse = true;
+			}
+		}
+	}
 
 	bg->scale.x = app.GetWidth();
 	bg->scale.y = app.GetHeight();
@@ -87,7 +118,7 @@ void Main::Update()
 			tower[i]->isFire = true;
 
 			for (int j = 0; j < 5; j++) {
-				for (int k = 0; k < 10; k++) {
+				for (int k = 0; k < 9; k++) {
 					if (tower[i]->Intersect(map[j][k].GetWorldPos())) {
 						tower[i]->SetWorldPos(map[j][k].GetWorldPos());
 
@@ -98,7 +129,7 @@ void Main::Update()
 	}
 
 
-	
+
 
 
 	for (int i = 0; i < 10; i++) {
