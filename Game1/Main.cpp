@@ -4,7 +4,7 @@
 
 Main::Main()
 {
-	quantity = 0;
+	
 
 	for (int i = 0; i < 10; i++) {
 		tower[i] = new Tower();
@@ -12,15 +12,15 @@ Main::Main()
 
 	ui = new Ui();
 
-	map = new Map * [stageR];
-	for (int i = 0; i < stageR; i++) {
-		map[i] = new Map[stageC];
+	map = new Map * [5];
+	for (int i = 0; i < 5; i++) {
+		map[i] = new Map[9];
 	}
 
 	bg = new ObImage(L"map.png");
 	
 	for (int i = 0; i < 10; i++) {
-		bee[i] = new ObImage(L"normal.png");
+		bee[i] = new ObImage(L"attack.png");
 		bee[i]->SetParentRT(*tower[i]);
 	}
 	
@@ -34,7 +34,7 @@ Main::~Main()
 
 	delete ui;
 
-	for (int i = 0; i < stageR; i++) {
+	for (int i = 0; i < 5; i++) {
 		delete[] map[i];
 	}
 	delete[] map;
@@ -55,9 +55,10 @@ void Main::Init()
 		bee[i]->scale.y = 80.0f;
 	}
 
-	for (int i = 0; i < stageR; i++) {
-		for (int j = 0; j < stageC; j++) {
-			map[i][j].Init(Vector2((j - 1.5) * 120, (i - 1) * 120));
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 9; j++) {
+			map[i][j].Init(Vector2((j - 2.7) * 92, (i - 2.2) * 112));
+			map[i][j].isFilled = false;
 			map[i][j].collider = COLLIDER::RECT;
 		}
 	}
@@ -85,8 +86,8 @@ void Main::Update()
 			tower[i]->isClick = false;
 			tower[i]->isFire = true;
 
-			for (int j = 0; j < stageR; j++) {
-				for (int k = 0; k < stageC; k++) {
+			for (int j = 0; j < 5; j++) {
+				for (int k = 0; k < 10; k++) {
 					if (tower[i]->Intersect(map[j][k].GetWorldPos())) {
 						tower[i]->SetWorldPos(map[j][k].GetWorldPos());
 
@@ -108,8 +109,8 @@ void Main::Update()
 
 	ui->Update();
 
-	for (int i = 0; i < stageR; i++) {
-		for (int j = 0; j < stageC; j++) {
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 9; j++) {
 			map[i][j].Update();
 		}
 	}
@@ -139,8 +140,8 @@ void Main::Render()
 
 	ui->Render();
 
-	for (int i = 0; i < stageR; i++) {
-		for (int j = 0; j < stageC; j++) {
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 9; j++) {
 			map[i][j].Render();
 		}
 	}
