@@ -20,7 +20,7 @@ Main::Main()
 	bg = new ObImage(L"map.png");
 	
 	for (int i = 0; i < 10; i++) {
-		bee[i] = new ObImage(L"hit.png");
+		bee[i] = new ObImage(L"normal.png");
 		bee[i]->SetParentRT(*tower[i]);
 	}
 	
