@@ -6,7 +6,7 @@ Main::Main()
 {
 
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 30; i++) {
 		tower[i] = new Tower();
 	}
 
@@ -19,8 +19,8 @@ Main::Main()
 
 	bg = new ObImage(L"map.png");
 
-	for (int i = 0; i < 10; i++) {
-		bee[i] = new ObImage(L"attack.png");
+	for (int i = 0; i < 30; i++) {
+		bee[i] = new ObImage(L"hit.png");
 		bee[i]->SetParentRT(*tower[i]);
 	}
 
@@ -28,7 +28,7 @@ Main::Main()
 
 Main::~Main()
 {
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 30; i++) {
 		delete tower[i];
 	}
 
@@ -40,7 +40,7 @@ Main::~Main()
 	delete[] map;
 
 	delete bg;
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 30; i++) {
 		delete bee[i];
 	}
 }
@@ -49,7 +49,7 @@ void Main::Init()
 {
 	ui->Init();
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 30; i++) {
 		tower[i]->collider = COLLIDER::RECT;
 		bee[i]->scale.x = 80.0f;
 		bee[i]->scale.y = 80.0f;
@@ -105,9 +105,7 @@ void Main::Release()
 
 void Main::Update()
 {
-
-
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 30; i++) {
 		if (not tower[i]->isClick) continue;
 		else {
 			tower[i]->SetWorldPos(INPUT->GetWorldMousePos());
@@ -119,8 +117,10 @@ void Main::Update()
 
 			for (int j = 0; j < 5; j++) {
 				for (int k = 0; k < 9; k++) {
-					if (tower[i]->Intersect(map[j][k].GetWorldPos())) {
-						tower[i]->SetWorldPos(map[j][k].GetWorldPos());
+					if (tower[i]->Intersect(&map[j][k])) {
+						tower[i]->SetParentRT(map[j][k]);
+						tower[i]->SetLocalPos(Vector2 (0, 0));
+						//tower[i]->SetWorldPos(map[j][k].GetWorldPos());
 
 					}
 				}
@@ -132,7 +132,7 @@ void Main::Update()
 
 
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 30; i++) {
 		tower[i]->Update();
 		bee[i]->Update();
 	}
@@ -177,7 +177,7 @@ void Main::Render()
 		}
 	}
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 30; i++) {
 		tower[i]->Render();
 		bee[i]->Render();
 	}

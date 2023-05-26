@@ -3,12 +3,12 @@ class Main : public Scene
 {
 private:
 
-	Tower* tower[10];
+	Tower* tower[30];
 	Map** map;
 
 	Ui* ui;
 	ObImage* bg;
-	ObImage* bee[10];
+	ObImage* bee[30];
 
 	int stage = 3; // 임시 스테이지 구분변수 타일 활성체크용
 	
