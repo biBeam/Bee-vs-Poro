@@ -1,4 +1,5 @@
 #pragma once
+
 class Main : public Scene
 {
 private:
@@ -8,9 +9,7 @@ private:
 
 	Ui* ui;
 	ObImage* bg;
-	ObImage* bee[10];
-
-	int stage = 3; // 임시 스테이지 구분변수 타일 활성체크용
+	static ObImage* bee;
 	
 public:
 	Main();

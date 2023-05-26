@@ -4,7 +4,7 @@
 
 Main::Main()
 {
-
+	
 
 	for (int i = 0; i < 10; i++) {
 		tower[i] = new Tower();
@@ -18,12 +18,13 @@ Main::Main()
 	}
 
 	bg = new ObImage(L"map.png");
-
-	for (int i = 0; i < 10; i++) {
-		bee[i] = new ObImage(L"hit.png");
+	
+	/*for (int i = 0; i < 10; i++) {
+		bee[i] = new ObImage(L"attack.png");
 		bee[i]->SetParentRT(*tower[i]);
-	}
-
+	}*/
+	bee = new ObImage(L"attack.png");
+	
 }
 
 Main::~Main()
@@ -40,57 +41,29 @@ Main::~Main()
 	delete[] map;
 
 	delete bg;
-	for (int i = 0; i < 10; i++) {
+	/*for (int i = 0; i < 10; i++) {
 		delete bee[i];
-	}
+	}*/
+	delete bee;
 }
 
 void Main::Init()
 {
 	ui->Init();
 
-	for (int i = 0; i < 10; i++) {
+	/*for (int i = 0; i < 10; i++) {
 		tower[i]->collider = COLLIDER::RECT;
 		bee[i]->scale.x = 80.0f;
 		bee[i]->scale.y = 80.0f;
-	}
+	}*/
+
+	
 
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 9; j++) {
 			map[i][j].Init(Vector2((j - 2.7) * 92, (i - 2.2) * 112));
 			map[i][j].isFilled = false;
 			map[i][j].collider = COLLIDER::RECT;
-		}
-	}
-	//스테이지별 타워설치가능한 맵개방
-	if (stage == 1)
-	{
-		for (int i = 0; i < 9;i++)
-		{
-			map[0][i].isUse = false;
-			map[4][i].isUse = false;
-		}
-		for (int j = 1; j < 4; j++)
-		{
-			for (int k = 6; k < 9; k++)
-			{
-				map[j][k].isUse = false;
-			}
-		}
-	}
-	if (stage == 2)
-	{
-		for (int i = 0; i < 9; i++)
-		{
-			map[0][i].isUse = false;
-		}
-	}
-	if (stage == 3)
-	{
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 9; j++) {
-				map[i][j].isUse = true;
-			}
 		}
 	}
 
@@ -118,8 +91,8 @@ void Main::Update()
 			tower[i]->isFire = true;
 
 			for (int j = 0; j < 5; j++) {
-				for (int k = 0; k < 9; k++) {
-					if (tower[i]->Intersect(map[j][k].GetWorldPos())) {
+				for (int k = 0; k < 10; k++) {
+					if (tower[i]->Intersect(&map[j][k])) {
 						tower[i]->SetWorldPos(map[j][k].GetWorldPos());
 
 					}
@@ -129,14 +102,15 @@ void Main::Update()
 	}
 
 
+	
 
 
-
-	for (int i = 0; i < 10; i++) {
+	/*for (int i = 0; i < 10; i++) {
 		tower[i]->Update();
 		bee[i]->Update();
-	}
+	}*/
 
+	bee->Update();
 
 	ui->Update();
 
@@ -179,9 +153,9 @@ void Main::Render()
 
 	for (int i = 0; i < 10; i++) {
 		tower[i]->Render();
-		bee[i]->Render();
+		//bee[i]->Render();
 	}
-
+	bee->Render();
 }
 
 void Main::ResizeScreen()
