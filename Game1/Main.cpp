@@ -4,9 +4,9 @@
 
 Main::Main()
 {
-	
 
-	for (int i = 0; i < 10; i++) {
+
+	for (int i = 0; i < 30; i++) {
 		tower[i] = new Tower();
 	}
 
@@ -50,6 +50,7 @@ Main::~Main()
 void Main::Init()
 {
 	ui->Init();
+	ui->collider = COLLIDER::RECT;
 
 	/*for (int i = 0; i < 10; i++) {
 		tower[i]->collider = COLLIDER::RECT;
@@ -66,6 +67,37 @@ void Main::Init()
 			map[i][j].collider = COLLIDER::RECT;
 		}
 	}
+	//스테이지별 타워설치가능한 맵개방
+	if (stage == 1)
+	{
+		for (int i = 0; i < 9;i++)
+		{
+			map[0][i].isUse = false;
+			map[4][i].isUse = false;
+		}
+		for (int j = 1; j < 4; j++)
+		{
+			for (int k = 6; k < 9; k++)
+			{
+				map[j][k].isUse = false;
+			}
+		}
+	}
+	if (stage == 2)
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			map[0][i].isUse = false;
+		}
+	}
+	if (stage == 3)
+	{
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 9; j++) {
+				map[i][j].isUse = true;
+			}
+		}
+	}
 
 	bg->scale.x = app.GetWidth();
 	bg->scale.y = app.GetHeight();
@@ -78,22 +110,25 @@ void Main::Release()
 
 void Main::Update()
 {
-
-
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 30; i++) {
+		//타워 UI 클릭했을 때, 마우스 따라오기
 		if (not tower[i]->isClick) continue;
 		else {
 			tower[i]->SetWorldPos(INPUT->GetWorldMousePos());
 		}
 
+		//설치할 곳에 클릭했을 때, 타워 설치되고 bullet 쏘기 시작
 		if (INPUT->KeyDown(VK_LBUTTON)) {
 			tower[i]->isClick = false;
 			tower[i]->isFire = true;
 
+			//타일 경계면에 마우스 클릭하면 중앙에 빨려들어가서 설치
 			for (int j = 0; j < 5; j++) {
 				for (int k = 0; k < 10; k++) {
 					if (tower[i]->Intersect(&map[j][k])) {
-						tower[i]->SetWorldPos(map[j][k].GetWorldPos());
+						tower[i]->SetParentRT(map[j][k]);
+						tower[i]->SetLocalPos(Vector2 (0, 0));
+						//tower[i]->SetWorldPos(map[j][k].GetWorldPos());
 
 					}
 				}
@@ -126,8 +161,10 @@ void Main::Update()
 
 void Main::LateUpdate()
 {
-	Vector2 m = INPUT->GetWorldMousePos();
-	if (m.x >= -530 && m.x <= -470 && m.y >= 220 && m.y <= 280) {
+	//Vector2 m = INPUT->GetWorldMousePos();
+	//if (m.x >= -530 && m.x <= -470 && m.y >= 220 && m.y <= 280)
+	//좌상단 타워 UI
+	if (ui->Intersect(INPUT->GetWorldMousePos())) {
 		if (INPUT->KeyUp(VK_LBUTTON)) {
 			tower[quantity]->isBuild = true;
 			tower[quantity]->isClick = true;

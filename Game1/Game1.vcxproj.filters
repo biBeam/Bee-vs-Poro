@@ -9,6 +9,7 @@
     <ClInclude Include="Tower.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Unit.h" />
+    <ClInclude Include="Monster.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -18,6 +19,7 @@
     <ClCompile Include="Tower.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Unit.cpp" />
+    <ClCompile Include="Monster.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObject">

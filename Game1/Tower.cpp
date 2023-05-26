@@ -1,23 +1,49 @@
 #include "stdafx.h"
-#include "Bullet.h"
 #include "Tower.h"
 
+Tower::Tower(int towerName) {
+	switch (towerName) {
+	case 1:
+		scale.x = 60.0f;
+		scale.y = 60.0f;
+
+		att = 0;
+		attSpeed = 0;
+
+		isBuild = false;
+		isClick = false;
+		isFire = false;
+		break;
+
+	case 2:
+		scale.x = 60.0f;
+		scale.y = 60.0f;
+
+		att = 10;
+		attSpeed = 1;
+
+		isBuild = false;
+		isClick = false;
+		isFire = false;
+		break;
+
+	case 3:
+		scale.x = 60.0f;
+		scale.y = 60.0f;
+
+		att = 20;
+		attSpeed = 1;
+
+		isBuild = false;
+		isClick = false;
+		isFire = false;
+		break;
+	}
+
+}
 Tower::Tower()
 {
-	scale.x = 60.0f;
-	scale.y = 60.0f;
-
-	hp = 100;
-	att = 10;
-	attSpeed = 1;
-
-	isBuild = false;
-	isClick = false;
-	isFire = false;
-
-	
 }
-
 Tower::~Tower()
 {
 }
@@ -32,8 +58,8 @@ void Tower::Update()
 	if (not isBuild) return;
 
 	ObRect::Update();
-	
-	
+
+
 
 	/*for (int i = 0; i < 10; i++) {
 		bullet[i]->Update();
