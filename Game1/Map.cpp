@@ -3,8 +3,8 @@
 
 Map::Map()
 {
-	scale.x = 100.0f;
-	scale.y = 100.0f;
+	scale.x = 92.0f;
+	scale.y = 112.0f;
 
 	color.x = 0.7f;
 	color.y = 0.7f;

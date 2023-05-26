@@ -22,7 +22,7 @@ public:
 	virtual void ResizeScreen() override;
 
 public:
-	int quantity;
-	int stageR = 3;
-	int stageC = 5;
+	int quantity = 0;
+	int stageR = 3; //세로줄
+	int stageC = 5; //가로줄
 };
